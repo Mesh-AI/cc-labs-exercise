@@ -1,12 +1,12 @@
 import { ref, computed } from 'vue'
 import en from '../locales/en'
 import ja from '../locales/ja'
-import ptBR from '../locales/pt_BR'
+import pt_BR from '../locales/pt_BR'
 
 const translations = {
   en,
   ja,
-  pt_BR: ptBR
+  pt_BR: pt_BR
 }
 
 const getBrowserLocale = () => {
