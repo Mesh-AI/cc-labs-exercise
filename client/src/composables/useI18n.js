@@ -1,19 +1,30 @@
 import { ref, computed } from 'vue'
 import en from '../locales/en'
 import ja from '../locales/ja'
+import pt_BR from '../locales/pt_BR'
 
 const translations = {
   en,
-  ja
+  ja,
+  pt_BR: pt_BR
 }
 
-// Load saved locale from localStorage, default to 'en'
-const savedLocale = localStorage.getItem('app-locale') || 'en'
+const getBrowserLocale = () => {
+  const lang = (navigator.language || '').toLowerCase()
+  if (lang.startsWith('pt')) return 'pt_BR'
+  if (lang.startsWith('ja')) return 'ja'
+  return 'en'
+}
+
+// Load saved locale from localStorage, fall back to browser language detection
+const savedLocale = localStorage.getItem('app-locale') || getBrowserLocale()
 const currentLocale = ref(savedLocale)
 
-// Currency is automatically set based on locale (en -> USD, ja -> JPY)
+// Currency is automatically set based on locale
 const currentCurrency = computed(() => {
-  return currentLocale.value === 'ja' ? 'JPY' : 'USD'
+  if (currentLocale.value === 'ja') return 'JPY'
+  if (currentLocale.value === 'pt_BR') return 'BRL'
+  return 'USD'
 })
 
 export function useI18n() {
@@ -69,7 +80,8 @@ export function useI18n() {
   const localeName = computed(() => {
     const names = {
       en: 'English',
-      ja: '日本語'
+      ja: '日本語',
+      pt_BR: 'Português (Brasil)'
     }
     return names[currentLocale.value] || currentLocale.value
   })
