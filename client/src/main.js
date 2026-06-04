@@ -9,7 +9,7 @@ import Spending from './views/Spending.vue'
 import Reports from './views/Reports.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/dashboard/'),
   routes: [
     { path: '/', component: Dashboard },
     { path: '/inventory', component: Inventory },
