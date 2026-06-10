@@ -3,7 +3,7 @@
     <header class="top-nav">
       <div class="nav-container">
         <div class="logo">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="#d97757" aria-hidden="true" style="flex-shrink:0;"><path d="M12 2l1.6 6.6L20 7l-4.2 5L20 17l-6.4-1.6L12 22l-1.6-6.6L4 17l4.2-5L4 7l6.4 1.6z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#d97757" aria-hidden="true" class="logo-spark" style="flex-shrink:0;"><path d="M12 2l1.6 6.6L20 7l-4.2 5L20 17l-6.4-1.6L12 22l-1.6-6.6L4 17l4.2-5L4 7l6.4 1.6z"/></svg>
           <h1>{{ t('nav.companyName') }}</h1>
           <span class="subtitle">{{ t('nav.subtitle') }}</span>
         </div>
@@ -502,6 +502,22 @@ tbody tr:hover {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@keyframes logo-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.logo-spark {
+  animation: logo-rotate 24s linear infinite;
+  transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-spark {
+    animation: none;
+  }
 }
 
 .error {

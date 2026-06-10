@@ -6,60 +6,110 @@
 
     <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
     <div v-else-if="error" class="error">{{ error }}</div>
-    <div v-else>
+    <div v-else :style="{ opacity: contentOpacity, transition: reduceMotion ? 'none' : 'opacity 0.2s ease' }">
       <!-- Key Performance Indicators -->
       <div class="kpi-section">
         <h3 class="section-title">{{ t('dashboard.kpi.title') }}</h3>
         <div class="kpi-grid">
-          <div class="kpi-card">
+
+          <!-- KPI 1: Inventory Turnover -->
+          <div
+            class="kpi-card"
+            v-motion
+            :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: 0, type: 'spring', stiffness: 250, damping: 22 } }"
+            :hovered="{ scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 20 } }"
+          >
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.inventoryTurnover') }}</span>
             </div>
-            <div class="kpi-value">4.2</div>
+            <div class="kpi-value">
+              <NumberFlow :value="4.2" :animated="!reduceMotion" :format="{ minimumFractionDigits: 1, maximumFractionDigits: 1 }" />
+            </div>
             <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: 4.5 (-6.67%)</div>
             <div class="kpi-progress-bar">
               <div class="kpi-progress" style="width: 93.33%"></div>
             </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- KPI 2: Orders Fulfilled -->
+          <div
+            class="kpi-card"
+            v-motion
+            :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: 70, type: 'spring', stiffness: 250, damping: 22 } }"
+            :hovered="{ scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 20 } }"
+          >
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.ordersFulfilled') }}</span>
             </div>
-            <div class="kpi-value">{{ ordersData.fulfilled }}</div>
+            <div class="kpi-value">
+              <NumberFlow :value="ordersData.fulfilled" :animated="!reduceMotion" />
+            </div>
             <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: {{ ordersData.goal }} ({{ calculatePercentage(ordersData.fulfilled, ordersData.goal) }}%)</div>
             <div class="kpi-progress-bar">
               <div class="kpi-progress" :style="{ width: calculatePercentage(ordersData.fulfilled, ordersData.goal) + '%' }"></div>
             </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- KPI 3: Order Fill Rate -->
+          <div
+            class="kpi-card"
+            v-motion
+            :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: 140, type: 'spring', stiffness: 250, damping: 22 } }"
+            :hovered="{ scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 20 } }"
+          >
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.orderFillRate') }}</span>
             </div>
-            <div class="kpi-value">{{ fillRate }}%</div>
+            <div class="kpi-value">
+              <NumberFlow :value="fillRate" :animated="!reduceMotion" :format="{ minimumFractionDigits: 1, maximumFractionDigits: 1 }" suffix="%" />
+            </div>
             <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: 95% ({{ fillRate - 95 > 0 ? '+' : '' }}{{ (fillRate - 95).toFixed(2) }}%)</div>
             <div class="kpi-progress-bar">
               <div class="kpi-progress success" :style="{ width: (fillRate / 95 * 100) + '%' }"></div>
             </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- KPI 4: Revenue -->
+          <div
+            class="kpi-card"
+            v-motion
+            :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: 210, type: 'spring', stiffness: 250, damping: 22 } }"
+            :hovered="{ scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 20 } }"
+          >
             <div class="kpi-header">
               <span class="kpi-label">{{ t(selectedPeriod === 'all' ? 'dashboard.kpi.revenueYTD' : 'dashboard.kpi.revenueMTD') }}</span>
             </div>
-            <div class="kpi-value">{{ formatCurrency(Math.round(summary.total_orders_value), selectedCurrency) }}</div>
+            <div class="kpi-value">
+              <NumberFlow
+                :value="Math.round(summary.total_orders_value || 0)"
+                :animated="!reduceMotion"
+                :format="{ style: 'currency', currency: selectedCurrency, maximumFractionDigits: 0 }"
+              />
+            </div>
             <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: {{ formatCurrency(revenueGoal, selectedCurrency) }} ({{ summary.total_orders_value > revenueGoal ? '+' : '' }}{{ ((summary.total_orders_value / revenueGoal - 1) * 100).toFixed(1) }}%)</div>
             <div class="kpi-progress-bar">
               <div class="kpi-progress" :style="{ width: Math.min((summary.total_orders_value / revenueGoal * 100), 100) + '%' }"></div>
             </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- KPI 5: Avg Processing Time -->
+          <div
+            class="kpi-card"
+            v-motion
+            :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: 280, type: 'spring', stiffness: 250, damping: 22 } }"
+            :hovered="{ scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 20 } }"
+          >
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.avgProcessingTime') }}</span>
             </div>
-            <div class="kpi-value">2.8</div>
+            <div class="kpi-value">
+              <NumberFlow :value="2.8" :animated="!reduceMotion" :format="{ minimumFractionDigits: 1, maximumFractionDigits: 1 }" />
+            </div>
             <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: 3.0 (-6.67%)</div>
             <div class="kpi-progress-bar">
               <div class="kpi-progress success" style="width: 93.33%"></div>
@@ -76,30 +126,36 @@
       <!-- Charts Grid -->
       <div class="charts-grid">
         <!-- Order Health Dashboard -->
-        <div class="card chart-card">
+        <div
+          class="card chart-card"
+          v-motion
+          :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: 380, type: 'spring', stiffness: 220, damping: 24 } }"
+          :hovered="{ scale: 1.01, transition: { type: 'spring', stiffness: 300, damping: 20 } }"
+        >
           <div class="card-header">
             <h3 class="card-title">{{ t('dashboard.orderHealth.title') }}</h3>
           </div>
           <div class="chart-content">
             <div class="order-health-container">
-              <!-- Left: Donut Chart -->
+              <!-- Left: Donut Chart (animated sweep via drawProgress) -->
               <div class="order-health-chart">
                 <svg viewBox="0 0 200 200" class="donut-svg-compact">
                   <circle cx="100" cy="100" r="65" fill="none" stroke="#e9e4d8" stroke-width="25"/>
                   <circle cx="100" cy="100" r="65" fill="none" stroke="#10b981" stroke-width="25"
-                    :stroke-dasharray="`${getCircleSegment(statusData.delivered)} 408`"
+                    :stroke-dasharray="`${getAnimatedSegment(statusData.delivered)} 408`"
                     stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
                   <circle cx="100" cy="100" r="65" fill="none" stroke="#d97757" stroke-width="25"
-                    :stroke-dasharray="`${getCircleSegment(statusData.shipped)} 408`"
-                    :stroke-dashoffset="`-${getCircleSegment(statusData.delivered)}`"
+                    :stroke-dasharray="`${getAnimatedSegment(statusData.shipped)} 408`"
+                    :stroke-dashoffset="`-${getAnimatedSegment(statusData.delivered)}`"
                     transform="rotate(-90 100 100)"/>
                   <circle cx="100" cy="100" r="65" fill="none" stroke="#f59e0b" stroke-width="25"
-                    :stroke-dasharray="`${getCircleSegment(statusData.processing)} 408`"
-                    :stroke-dashoffset="`-${getCircleSegment(statusData.delivered) + getCircleSegment(statusData.shipped)}`"
+                    :stroke-dasharray="`${getAnimatedSegment(statusData.processing)} 408`"
+                    :stroke-dashoffset="`-${getAnimatedSegment(statusData.delivered) + getAnimatedSegment(statusData.shipped)}`"
                     transform="rotate(-90 100 100)"/>
                   <circle cx="100" cy="100" r="65" fill="none" stroke="#ef4444" stroke-width="25"
-                    :stroke-dasharray="`${getCircleSegment(statusData.backordered)} 408`"
-                    :stroke-dashoffset="`-${getCircleSegment(statusData.delivered) + getCircleSegment(statusData.shipped) + getCircleSegment(statusData.processing)}`"
+                    :stroke-dasharray="`${getAnimatedSegment(statusData.backordered)} 408`"
+                    :stroke-dashoffset="`-${getAnimatedSegment(statusData.delivered) + getAnimatedSegment(statusData.shipped) + getAnimatedSegment(statusData.processing)}`"
                     transform="rotate(-90 100 100)"/>
                   <text x="100" y="90" text-anchor="middle" class="donut-center-label">{{ t('dashboard.orderHealth.total') }}</text>
                   <text x="100" y="120" text-anchor="middle" class="donut-center-value">{{ orderHealthMetrics.totalOrders }}</text>
@@ -116,21 +172,44 @@
               <div class="order-health-metrics">
                 <div class="health-metric">
                   <div class="health-metric-label">{{ t('dashboard.orderHealth.revenue') }}</div>
-                  <div class="health-metric-value">{{ formatCurrency(orderHealthMetrics.totalValue, selectedCurrency) }}</div>
+                  <div class="health-metric-value">
+                    <NumberFlow
+                      :value="Math.round(orderHealthMetrics.totalValue)"
+                      :animated="!reduceMotion"
+                      :format="{ style: 'currency', currency: selectedCurrency, maximumFractionDigits: 0 }"
+                    />
+                  </div>
                 </div>
                 <div class="health-metric">
                   <div class="health-metric-label">{{ t('dashboard.orderHealth.avgOrderValue') }}</div>
-                  <div class="health-metric-value">{{ formatCurrency(orderHealthMetrics.avgOrderValue, selectedCurrency) }}</div>
+                  <div class="health-metric-value">
+                    <NumberFlow
+                      :value="Math.round(orderHealthMetrics.avgOrderValue)"
+                      :animated="!reduceMotion"
+                      :format="{ style: 'currency', currency: selectedCurrency, maximumFractionDigits: 0 }"
+                    />
+                  </div>
                 </div>
                 <div class="health-metric">
                   <div class="health-metric-label">{{ t('dashboard.orderHealth.onTimeRate') }}</div>
                   <div class="health-metric-value" :class="{ 'metric-good': orderHealthMetrics.onTimeRate >= 90, 'metric-warning': orderHealthMetrics.onTimeRate < 90 && orderHealthMetrics.onTimeRate >= 75, 'metric-bad': orderHealthMetrics.onTimeRate < 75 }">
-                    {{ orderHealthMetrics.onTimeRate.toFixed(1) }}%
+                    <NumberFlow
+                      :value="parseFloat(orderHealthMetrics.onTimeRate.toFixed(1))"
+                      :animated="!reduceMotion"
+                      :format="{ minimumFractionDigits: 1, maximumFractionDigits: 1 }"
+                      suffix="%"
+                    />
                   </div>
                 </div>
                 <div class="health-metric">
                   <div class="health-metric-label">{{ t('dashboard.orderHealth.avgFulfillmentDays') }}</div>
-                  <div class="health-metric-value">{{ orderHealthMetrics.avgFulfillmentDays.toFixed(1) }}</div>
+                  <div class="health-metric-value">
+                    <NumberFlow
+                      :value="parseFloat(orderHealthMetrics.avgFulfillmentDays.toFixed(1))"
+                      :animated="!reduceMotion"
+                      :format="{ minimumFractionDigits: 1, maximumFractionDigits: 1 }"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,16 +217,29 @@
         </div>
 
         <!-- Inventory by Category -->
-        <div class="card chart-card">
+        <div
+          class="card chart-card"
+          v-motion
+          :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: 450, type: 'spring', stiffness: 220, damping: 24 } }"
+          :hovered="{ scale: 1.01, transition: { type: 'spring', stiffness: 300, damping: 20 } }"
+        >
           <div class="card-header">
             <h3 class="card-title">{{ t('dashboard.inventoryValue.title') }}</h3>
           </div>
           <div class="chart-content">
             <div class="horizontal-bar-chart" v-if="categoryData.length > 0">
-              <div v-for="cat in categoryData" :key="cat.name" class="h-bar-item">
+              <div v-for="(cat, catIndex) in categoryData" :key="cat.name" class="h-bar-item">
                 <div class="h-bar-label">{{ translateCategory(cat.name) }}</div>
                 <div class="h-bar-container">
-                  <div class="h-bar" :style="{ width: (cat.value / maxCategoryValue * 100) + '%', background: cat.color }">
+                  <div
+                    class="h-bar"
+                    :style="{
+                      width: getBarWidth(cat.value),
+                      background: cat.color,
+                      transitionDelay: reduceMotion ? '0ms' : `${catIndex * 80}ms`
+                    }"
+                  >
                     <span class="h-bar-value">{{ selectedCurrency === 'JPY' ? formatCurrency(cat.value, selectedCurrency) : `$${(cat.value / 1000).toFixed(1)}K` }}</span>
                   </div>
                 </div>
@@ -158,9 +250,17 @@
         </div>
 
         <!-- Inventory Shortages -->
-        <div class="card chart-card full-width">
+        <div
+          class="card chart-card full-width"
+          v-motion
+          :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: 520, type: 'spring', stiffness: 220, damping: 24 } }"
+        >
           <div class="card-header">
-            <h3 class="card-title">{{ t('dashboard.inventoryShortages.title') }} ({{ backlogItems.length }})</h3>
+            <h3 class="card-title">
+              {{ t('dashboard.inventoryShortages.title') }}
+              (<NumberFlow :value="backlogItems.length" :animated="!reduceMotion" />)
+            </h3>
           </div>
           <div v-if="backlogItems.length === 0" class="no-backlog">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="success-icon">
@@ -185,8 +285,11 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="item in backlogItems"
+                  v-for="(item, rowIndex) in backlogItems"
                   :key="item.id"
+                  v-motion
+                  :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }"
+                  :enter="{ opacity: 1, y: 0, transition: { delay: rowIndex * 30, type: 'spring', stiffness: 280, damping: 26 } }"
                 >
                   <td @click="showBacklogDetail(item)" style="cursor: pointer;"><strong>{{ item.order_id }}</strong></td>
                   <td @click="showBacklogDetail(item)" style="cursor: pointer;"><strong>{{ item.item_sku }}</strong></td>
@@ -231,7 +334,12 @@
         </div>
 
         <!-- Top Products Table -->
-        <div class="card chart-card full-width">
+        <div
+          class="card chart-card full-width"
+          v-motion
+          :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: 590, type: 'spring', stiffness: 220, damping: 24 } }"
+        >
           <div class="card-header">
             <h3 class="card-title">{{ t('dashboard.topProducts.title') }}</h3>
           </div>
@@ -250,10 +358,13 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="item in topProducts"
+                  v-for="(item, rowIndex) in topProducts"
                   :key="item.sku"
                   class="clickable-row"
                   @click="showProductDetail(item)"
+                  v-motion
+                  :initial="reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }"
+                  :enter="{ opacity: 1, y: 0, transition: { delay: rowIndex * 30, type: 'spring', stiffness: 280, damping: 26 } }"
                 >
                   <td><strong>{{ translateProductName(item.name) }}</strong></td>
                   <td>{{ item.sku }}</td>
@@ -297,19 +408,21 @@
 </template>
 
 <script>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed, watch, nextTick } from 'vue'
 import { api } from '../api'
 import { useFilters } from '../composables/useFilters'
 import { useI18n } from '../composables/useI18n'
 import { formatCurrency } from '../utils/currency'
 import ProductDetailModal from '../components/ProductDetailModal.vue'
 import BacklogDetailModal from '../components/BacklogDetailModal.vue'
+import NumberFlow from '@number-flow/vue'
 
 export default {
   name: 'Dashboard',
   components: {
     ProductDetailModal,
     BacklogDetailModal,
+    NumberFlow,
   },
   setup() {
     const { t, currentCurrency, translateProductName, translateWarehouse } = useI18n()
@@ -327,6 +440,18 @@ export default {
     const showPOModal = ref(false)
     const selectedBacklogForPO = ref(null)
     const poModalMode = ref('create')
+
+    // ── Animation state ───────────────────────────────────────────────
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // hasEntered guards the stagger so it only plays once on first mount
+    const hasEntered = ref(false)
+    // drawProgress drives the donut sweep (0 → 1)
+    const drawProgress = ref(reduceMotion ? 1 : 0)
+    // barsVisible drives the category-bar width animation
+    const barsVisible = ref(reduceMotion)
+    // contentOpacity drives the cross-fade on filter change
+    const contentOpacity = ref(1)
+    // ──────────────────────────────────────────────────────────────────
 
     // Use shared filters
     const {
@@ -558,7 +683,31 @@ export default {
       return allBacklogItems.value.filter(b => validSkus.has(b.item_sku))
     })
 
-    const loadData = async () => {
+    // Donut draw animation via rAF
+    const animateDonut = () => {
+      if (reduceMotion) {
+        drawProgress.value = 1
+        return
+      }
+      const duration = 900
+      const start = performance.now()
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
+      const step = (now) => {
+        const elapsed = now - start
+        const t = Math.min(elapsed / duration, 1)
+        drawProgress.value = easeOutCubic(t)
+        if (t < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }
+
+    const loadData = async (isFilterChange = false) => {
+      // Cross-fade out only when a filter change triggers a reload
+      if (isFilterChange && !reduceMotion) {
+        contentOpacity.value = 0.4
+        barsVisible.value = false
+      }
+
       try {
         loading.value = true
         const filters = getCurrentFilters()
@@ -578,6 +727,13 @@ export default {
         error.value = 'Failed to load dashboard data: ' + err.message
       } finally {
         loading.value = false
+        if (isFilterChange) {
+          // Cross-fade back in after filter change
+          contentOpacity.value = 1
+          // Re-trigger bar growth
+          await nextTick()
+          barsVisible.value = true
+        }
       }
     }
 
@@ -672,12 +828,34 @@ export default {
       showPOModal.value = false
     }
 
-    // Watch for filter changes and reload data
+    // Watch for filter changes and reload data (pass isFilterChange=true)
     watch([selectedPeriod, selectedLocation, selectedCategory, selectedStatus], () => {
-      loadData()
+      loadData(true)
     })
 
-    onMounted(loadData)
+    onMounted(async () => {
+      await loadData(false)
+      // Entrance animations — only on first mount
+      hasEntered.value = true
+      animateDonut()
+      // Bars grow in after a short delay (after KPI stagger finishes ~350ms)
+      if (!reduceMotion) {
+        setTimeout(() => { barsVisible.value = true }, 400)
+      } else {
+        barsVisible.value = true
+      }
+    })
+
+    // Computed segment length multiplied by drawProgress for donut sweep
+    const getAnimatedSegment = (value) => {
+      return getCircleSegment(value) * drawProgress.value
+    }
+
+    // Bar width: 0 when !barsVisible, full target when barsVisible
+    const getBarWidth = (catValue) => {
+      if (!barsVisible.value) return '0%'
+      return (catValue / maxCategoryValue.value * 100) + '%'
+    }
 
     return {
       t,
@@ -696,6 +874,8 @@ export default {
       backlogItems,
       calculatePercentage,
       getCircleSegment,
+      getAnimatedSegment,
+      getBarWidth,
       getStockBadge,
       translateCategory,
       translateStockLevel,
@@ -720,7 +900,14 @@ export default {
       poModalMode,
       openPOModal,
       viewPO,
-      handlePOCreated
+      handlePOCreated,
+      // Animation
+      reduceMotion,
+      hasEntered,
+      drawProgress,
+      barsVisible,
+      contentOpacity,
+      NumberFlow,
     }
   }
 }
