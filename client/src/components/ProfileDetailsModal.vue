@@ -128,20 +128,20 @@ const formatDate = (dateString) => {
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e9e4d8;
 }
 
 .modal-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f1e1d;
   letter-spacing: -0.025em;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: #64748b;
+  color: #73706a;
   cursor: pointer;
   padding: 0.5rem;
   display: flex;
@@ -152,8 +152,8 @@ const formatDate = (dateString) => {
 }
 
 .close-button:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: #efe9dc;
+  color: #1f1e1d;
 }
 
 .modal-body {
@@ -174,14 +174,14 @@ const formatDate = (dateString) => {
   align-items: center;
   gap: 0.75rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e9e4d8;
 }
 
 .avatar-xl {
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  background: linear-gradient(135deg, #c15f3c 0%, #9c4423 100%);
   color: white;
   display: flex;
   align-items: center;
@@ -195,13 +195,13 @@ const formatDate = (dateString) => {
 .profile-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f1e1d;
   margin: 0;
 }
 
 .profile-job-title {
   font-size: 1rem;
-  color: #64748b;
+  color: #73706a;
   margin: 0;
 }
 
@@ -222,18 +222,18 @@ const formatDate = (dateString) => {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: #73706a;
 }
 
 .info-value {
   font-size: 0.938rem;
-  color: #0f172a;
+  color: #1f1e1d;
   font-weight: 500;
 }
 
 .modal-footer {
   padding: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #e9e4d8;
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
@@ -241,20 +241,20 @@ const formatDate = (dateString) => {
 
 .btn-secondary {
   padding: 0.625rem 1.25rem;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  background: #efe9dc;
+  border: 1px solid #e9e4d8;
   border-radius: 8px;
   font-weight: 500;
   font-size: 0.875rem;
-  color: #334155;
+  color: #3d3a35;
   cursor: pointer;
   transition: all 0.15s ease;
   font-family: inherit;
 }
 
 .btn-secondary:hover {
-  background: #e2e8f0;
-  border-color: #cbd5e1;
+  background: #e9e4d8;
+  border-color: #d2ccbe;
 }
 
 /* Modal transition animations */

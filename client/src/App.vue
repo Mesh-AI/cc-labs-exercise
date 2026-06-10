@@ -3,6 +3,7 @@
     <header class="top-nav">
       <div class="nav-container">
         <div class="logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#d97757" aria-hidden="true" style="flex-shrink:0;"><path d="M12 2l1.6 6.6L20 7l-4.2 5L20 17l-6.4-1.6L12 22l-1.6-6.6L4 17l4.2-5L4 7l6.4 1.6z"/></svg>
           <h1>{{ t('nav.companyName') }}</h1>
           <span class="subtitle">{{ t('nav.subtitle') }}</span>
         </div>
@@ -162,6 +163,15 @@ export default {
 </script>
 
 <style>
+:root {
+  --claude-coral: #d97757;
+  --claude-coral-dark: #c15f3c;
+  --claude-ink: #1f1e1d;
+  --claude-cream: #f5f2ea;
+  --claude-border: #e9e4d8;
+  --claude-text-muted: #73706a;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -170,10 +180,14 @@ export default {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: #f8fafc;
-  color: #1e293b;
+  background: var(--claude-cream);
+  color: #2b2926;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, .card-title, .section-title, .kpi-value, .stat-value, .donut-center-value, .health-metric-value {
+  font-family: 'Fraunces', Georgia, serif;
 }
 
 .app {
@@ -184,7 +198,7 @@ body {
 
 .top-nav {
   background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e9e4d8;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
@@ -211,23 +225,23 @@ body {
 
 .logo {
   display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .logo h1 {
   font-size: 1.375rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f1e1d;
   letter-spacing: -0.025em;
 }
 
 .subtitle {
   font-size: 0.813rem;
-  color: #64748b;
+  color: #73706a;
   font-weight: 400;
   padding-left: 0.75rem;
-  border-left: 1px solid #e2e8f0;
+  border-left: 1px solid #e9e4d8;
 }
 
 .nav-tabs {
@@ -237,7 +251,7 @@ body {
 
 .nav-tabs a {
   padding: 0.625rem 1.25rem;
-  color: #64748b;
+  color: #73706a;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.938rem;
@@ -247,13 +261,13 @@ body {
 }
 
 .nav-tabs a:hover {
-  color: #0f172a;
-  background: #f1f5f9;
+  color: #1f1e1d;
+  background: #efe9dc;
 }
 
 .nav-tabs a.active {
-  color: #2563eb;
-  background: #eff6ff;
+  color: #c15f3c;
+  background: #fbf4ed;
 }
 
 .nav-tabs a.active::after {
@@ -263,7 +277,7 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: #2563eb;
+  background: #c15f3c;
 }
 
 .main-content {
@@ -281,13 +295,13 @@ body {
 .page-header h2 {
   font-size: 1.875rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f1e1d;
   margin-bottom: 0.375rem;
   letter-spacing: -0.025em;
 }
 
 .page-header p {
-  color: #64748b;
+  color: #73706a;
   font-size: 0.938rem;
 }
 
@@ -302,17 +316,17 @@ body {
   background: white;
   padding: 1.25rem;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e9e4d8;
   transition: all 0.2s ease;
 }
 
 .stat-card:hover {
-  border-color: #cbd5e1;
+  border-color: #d2ccbe;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .stat-label {
-  color: #64748b;
+  color: #73706a;
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -323,7 +337,7 @@ body {
 .stat-value {
   font-size: 2.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f1e1d;
   letter-spacing: -0.025em;
 }
 
@@ -340,14 +354,14 @@ body {
 }
 
 .stat-card.info .stat-value {
-  color: #2563eb;
+  color: #c15f3c;
 }
 
 .card {
   background: white;
   border-radius: 10px;
   padding: 1.25rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e9e4d8;
   margin-bottom: 1.25rem;
 }
 
@@ -357,13 +371,13 @@ body {
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 0.875rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e9e4d8;
 }
 
 .card-title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f1e1d;
   letter-spacing: -0.025em;
 }
 
@@ -377,16 +391,16 @@ table {
 }
 
 thead {
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
+  background: #faf7f0;
+  border-top: 1px solid #e9e4d8;
+  border-bottom: 1px solid #e9e4d8;
 }
 
 th {
   text-align: left;
   padding: 0.5rem 0.75rem;
   font-weight: 600;
-  color: #475569;
+  color: #56524b;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -394,8 +408,8 @@ th {
 
 td {
   padding: 0.5rem 0.75rem;
-  border-top: 1px solid #f1f5f9;
-  color: #334155;
+  border-top: 1px solid #efe9dc;
+  color: #3d3a35;
   font-size: 0.875rem;
 }
 
@@ -404,7 +418,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: #f8fafc;
+  background: #faf7f0;
 }
 
 .badge {
@@ -433,8 +447,8 @@ tbody tr:hover {
 }
 
 .badge.info {
-  background: #dbeafe;
-  color: #1e40af;
+  background: #f6e6da;
+  color: #9c4423;
 }
 
 .badge.increasing {
@@ -448,8 +462,8 @@ tbody tr:hover {
 }
 
 .badge.stable {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: #f6e6da;
+  color: #883a1c;
 }
 
 .badge.high {
@@ -463,15 +477,31 @@ tbody tr:hover {
 }
 
 .badge.low {
-  background: #dbeafe;
-  color: #1e40af;
+  background: #f6e6da;
+  color: #9c4423;
 }
 
 .loading {
   text-align: center;
   padding: 3rem;
-  color: #64748b;
+  color: var(--claude-text-muted);
   font-size: 0.938rem;
+}
+
+.loading::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 1rem auto 0;
+  border: 3px solid var(--claude-border);
+  border-top-color: var(--claude-coral);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .error {

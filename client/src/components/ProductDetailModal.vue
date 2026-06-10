@@ -162,20 +162,20 @@ const getStockBadgeClass = (stockLevel) => {
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e9e4d8;
 }
 
 .modal-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f1e1d;
   letter-spacing: -0.025em;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: #64748b;
+  color: #73706a;
   cursor: pointer;
   padding: 0.5rem;
   display: flex;
@@ -186,8 +186,8 @@ const getStockBadgeClass = (stockLevel) => {
 }
 
 .close-button:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: #efe9dc;
+  color: #1f1e1d;
 }
 
 .modal-body {
@@ -201,14 +201,14 @@ const getStockBadgeClass = (stockLevel) => {
   align-items: center;
   gap: 1.25rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e9e4d8;
   margin-bottom: 2rem;
 }
 
 .product-icon {
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #d97757 0%, #c15f3c 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -225,13 +225,13 @@ const getStockBadgeClass = (stockLevel) => {
 .product-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f1e1d;
   margin: 0 0 0.5rem 0;
 }
 
 .product-sku {
   font-size: 0.875rem;
-  color: #64748b;
+  color: #73706a;
   font-family: 'Monaco', 'Courier New', monospace;
 }
 
@@ -277,18 +277,18 @@ const getStockBadgeClass = (stockLevel) => {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: #73706a;
 }
 
 .info-value {
   font-size: 0.938rem;
-  color: #0f172a;
+  color: #1f1e1d;
   font-weight: 500;
 }
 
 .modal-footer {
   padding: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #e9e4d8;
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
@@ -296,20 +296,20 @@ const getStockBadgeClass = (stockLevel) => {
 
 .btn-secondary {
   padding: 0.625rem 1.25rem;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  background: #efe9dc;
+  border: 1px solid #e9e4d8;
   border-radius: 8px;
   font-weight: 500;
   font-size: 0.875rem;
-  color: #334155;
+  color: #3d3a35;
   cursor: pointer;
   transition: all 0.15s ease;
   font-family: inherit;
 }
 
 .btn-secondary:hover {
-  background: #e2e8f0;
-  border-color: #cbd5e1;
+  background: #e9e4d8;
+  border-color: #d2ccbe;
 }
 
 /* Modal transition animations */
