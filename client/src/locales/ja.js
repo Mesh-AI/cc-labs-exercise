@@ -6,7 +6,7 @@ export default {
     orders: '注文',
     finance: '財務',
     demandForecast: '需要予測',
-    companyName: 'Claude コンポーネンツ',
+    companyName: 'Catalyst コンポーネンツ',
     subtitle: '在庫管理システム'
   },
 

@@ -6,7 +6,7 @@ export default {
     orders: 'Pedidos',
     finance: 'Finanças',
     demandForecast: 'Previsão de Demanda',
-    companyName: 'Claude Components',
+    companyName: 'Catalyst Components',
     subtitle: 'Sistema de Gestão de Estoque'
   },
 

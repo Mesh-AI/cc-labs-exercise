@@ -6,7 +6,7 @@ export default {
     orders: 'Orders',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
-    companyName: 'Claude Components',
+    companyName: 'Catalyst Components',
     subtitle: 'Inventory Management System'
   },
 
