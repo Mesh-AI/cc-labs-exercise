@@ -3,8 +3,15 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  base: '/dashboard/',
   server: {
     port: 3000,
-    allowedHosts: true
+    allowedHosts: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8001',
+        changeOrigin: true
+      }
+    }
   }
 })
