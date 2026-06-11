@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 import Dashboard from './views/Dashboard.vue'
 import Inventory from './views/Inventory.vue'
@@ -9,7 +9,7 @@ import Spending from './views/Spending.vue'
 import Reports from './views/Reports.vue'
 
 const router = createRouter({
-  history: createWebHistory('/dashboard/'),
+  history: createWebHashHistory(),
   routes: [
     { path: '/', component: Dashboard },
     { path: '/inventory', component: Inventory },
