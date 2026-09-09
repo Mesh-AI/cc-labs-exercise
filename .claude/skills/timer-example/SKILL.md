@@ -21,7 +21,17 @@ while a foreground command is running.
 Set the Bash tool `timeout` above the duration in ms (e.g. `120000` for a 60s
 timer) so the command isn't auto-backgrounded before the user presses anything.
 
-Then tell the user to press Ctrl+B while it is ticking.
+Open with the framing below (verbatim or close to it) so the demo lands as a
+real problem rather than an abstract keybinding. Say it in the same message as
+the Bash call, so it is on screen while the timer ticks:
+
+> Some commands take a while — a test suite, a build, this 60s timer. While one
+> runs in the foreground I'm blocked waiting on it, so you can't talk to me.
+>
+> Press **Ctrl+B** and I hand the waiting off to the background — the command
+> keeps running, and we can keep talking. Try it now while it ticks.
+
+Hold the tmux caveat until it actually bites; it clutters the opener.
 
 ## What to point out
 
